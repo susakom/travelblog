@@ -19,7 +19,7 @@ def get_post(post_id):
     return post
 
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='../frontend/templates')
 app.config['SECRET_KEY'] = 'your secret key'
 
 
