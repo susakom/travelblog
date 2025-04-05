@@ -64,13 +64,27 @@ pipeline {
             steps {
                 sh """
                     cd "${PROJECT_DIR}"
+                    sh """
+                    # Создаем venv при необходимости
+                    if [ ! -d "${VENV_PATH}" ]; then
+                        python3 -m venv "${VENV_PATH}"
+                        . "${VENV_PATH}/bin/activate"
+                    else
+                        . "${VENV_PATH}/bin/activate"
+                    fi
+                    
+                    # Установка зависимостей
+                    pip install -r "${PROJECT_DIR}/requirements.txt"
+                """
+
+                    
                      # Проверка venv
                      if [ ! -f "\$PROJECT_DIR/venv/bin/python" ]; then
                           echo "ERROR: Виртуальное окружение не найдено"
                           exit 1
                      fi
-                    . ./venv/bin/activate
-                    
+
+
                     // # Остановка предыдущего процесса
                     // pkill -f "python app.py" || true
                     
