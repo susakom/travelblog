@@ -27,7 +27,6 @@ pipeline {
                     python3 -m venv venv
                     pip install --upgrade pip wheel
                     . ./venv/bin/activate
-                    //  Установка зависимостей
                     pip install -r backend/requirements.txt
                 """
             }
