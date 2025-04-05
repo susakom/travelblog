@@ -63,44 +63,40 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh """
+                    # Переход в директорию проекта
                     cd "${PROJECT_DIR}"
-                    //  Создаем venv при необходимости
-                        if [ ! -d "${VENV_PATH}" ]; then
-                            python3 -m venv "${VENV_PATH}"
-                            . "${VENV_PATH}/bin/activate"
-                        else
-                            . "${VENV_PATH}/bin/activate"
-                        fi
+                    
+                    # Создаем venv при необходимости
+                    if [ ! -d "${VENV_PATH}" ]; then
+                        python3 -m venv "${VENV_PATH}"
+                        . "${VENV_PATH}/bin/activate"
                         
-                    //  Установка зависимостей
+                    else
+                        . "${VENV_PATH}/bin/activate"
+                    fi
+                    
+                    # Установка зависимостей
                     pip install -r "${PROJECT_DIR}/requirements.txt"
-               
-
                     
-                     # Проверка venv
-                     if [ ! -f "\$PROJECT_DIR/venv/bin/python" ]; then
-                          echo "ERROR: Виртуальное окружение не найдено"
-                          exit 1
-                     fi
-
-
-                    // # Остановка предыдущего процесса
-                    // pkill -f "python app.py" || true
+                    # Проверка venv
+                    if [ ! -f "${VENV_PATH}/bin/python" ]; then
+                        echo "ERROR: Виртуальное окружение не найдено"
+                        exit 1
+                    fi
                     
-                    # Запуск приложения с логированием
-                    // nohup python app.py > app.log 2>&1 &
-                    python app.py
+                    # Запуск приложения
+                    python app.py &
+                    
                     # Проверка запуска
                     sleep 5
                     if ! pgrep -f "python app.py"; then
                         echo "ERROR: Процесс не запустился"
-                        cat app.log
+                        [ -f app.log ] && cat app.log
                         exit 1
                     fi
                 """
             }
         }
-    }
 
     post {
         always {
