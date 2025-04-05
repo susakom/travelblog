@@ -66,12 +66,12 @@ pipeline {
                     cd "${PROJECT_DIR}"
                     source "venv/bin/activate"
                     
-                    # Остановка предыдущего процесса
-                    pkill -f "python app.py" || true
+                    // # Остановка предыдущего процесса
+                    // pkill -f "python app.py" || true
                     
                     # Запуск приложения с логированием
-                    nohup python app.py > app.log 2>&1 &
-                    
+                    // nohup python app.py > app.log 2>&1 &
+                    python app.py
                     # Проверка запуска
                     sleep 5
                     if ! pgrep -f "python app.py"; then
