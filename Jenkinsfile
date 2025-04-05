@@ -24,6 +24,7 @@ pipeline {
         stage('Setup Environment') {
             steps {
                 sh """
+                    cd "${PROJECT_DIR}"
                     python3 -m venv venv
                     pip install --upgrade pip wheel
                     . ./venv/bin/activate
