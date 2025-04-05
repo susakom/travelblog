@@ -64,6 +64,11 @@ pipeline {
             steps {
                 sh """
                     cd "${PROJECT_DIR}"
+                     # Проверка venv
+                     if [ ! -f "\$PROJECT_DIR/venv/bin/python" ]; then
+                          echo "ERROR: Виртуальное окружение не найдено"
+                          exit 1
+                     fi
                     . ./venv/bin/activate
                     
                     // # Остановка предыдущего процесса
