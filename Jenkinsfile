@@ -43,7 +43,7 @@ pipeline {
             steps {
                 sh """
                     cd "${PROJECT_DIR}"
-                    . "${VENV_PATH}/bin/activate"
+                    . "venv/bin/activate"
                     
                     # Установка тестовых зависимостей
                     pip install pytest pytest-cov
