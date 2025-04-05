@@ -76,12 +76,5 @@ pipeline {
             }
         }
 
-    post {
-        always {
-            archiveArtifacts artifacts: "${PROJECT_DIR}/app.log", allowEmptyArchive: true
-            cleanWs()  // Очистка workspace
-        }
-               
-    }
     }
 }
