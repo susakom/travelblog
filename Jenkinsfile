@@ -41,7 +41,6 @@ pipeline {
                     cd "${PROJECT_DIR}"
                     . ./venv/bin/activate
                     python app.py > /var/log/flask.log 2>&1 &
-                    disown -h %1  # Отвязываем процесс
                     sleep 5  # Даём время на запуск
                     ps aux | grep app.py  # Проверяем, что процесс жив
                               
