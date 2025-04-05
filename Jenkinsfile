@@ -24,15 +24,9 @@ pipeline {
         stage('Setup Environment') {
             steps {
                 sh """
-                    //  Создаем venv при необходимости
-                    if [ ! -d "${VENV_PATH}" ]; then
-                        python3 -m venv "${VENV_PATH}"
-                        . "${VENV_PATH}/bin/activate"
-                        pip install --upgrade pip wheel
-                    else
-                        . "${VENV_PATH}/bin/activate"
-                    fi
-                    
+                    python3 -m venv venv
+                    pip install --upgrade pip wheel
+                    . ./venv/bin/activate
                     //  Установка зависимостей
                     pip install -r "${PROJECT_DIR}/requirements.txt"
                 """
