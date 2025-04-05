@@ -28,7 +28,7 @@ pipeline {
                     pip install --upgrade pip wheel
                     . ./venv/bin/activate
                     //  Установка зависимостей
-                    pip install -r "${PROJECT_DIR}/requirements.txt"
+                    pip install -r backend/requirements.txt
                 """
             }
         }
