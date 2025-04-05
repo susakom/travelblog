@@ -65,14 +65,14 @@ pipeline {
                 sh """
                     cd "${PROJECT_DIR}"
                     sh """
-                    # Создаем venv при необходимости
-                    if [ ! -d "${VENV_PATH}" ]; then
-                        python3 -m venv "${VENV_PATH}"
-                        . "${VENV_PATH}/bin/activate"
-                    else
-                        . "${VENV_PATH}/bin/activate"
-                    fi
-                    
+                        # Создаем venv при необходимости
+                        if [ ! -d "${VENV_PATH}" ]; then
+                            python3 -m venv "${VENV_PATH}"
+                            . "${VENV_PATH}/bin/activate"
+                        else
+                            . "${VENV_PATH}/bin/activate"
+                        fi
+                        
                     # Установка зависимостей
                     pip install -r "${PROJECT_DIR}/requirements.txt"
                 """
