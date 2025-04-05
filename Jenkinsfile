@@ -39,27 +39,7 @@ pipeline {
             }
         }
 
-        // stage('Test') {
-        //     steps {
-        //         sh """
-        //             cd "${PROJECT_DIR}"
-        //            . ./venv/bin/activate
-                    
-        //             # Установка тестовых зависимостей
-        //             pip install pytest pytest-cov
-                    
-        //             # Запуск тестов
-        //             python -m pytest tests/ \
-        //                 --cov=app \
-        //                 --cov-report=xml:coverage.xml \
-        //                 --junitxml=test-results.xml \
-        //                 --disable-warnings
-        //         """
-        //         junit "${PROJECT_DIR}/test-results.xml"
-        //         cobertura coberturaReportFile: "${PROJECT_DIR}/coverage.xml"
-        //     }
-        // }
-
+   
         stage('Deploy') {
             steps {
                 sh """
@@ -84,10 +64,8 @@ pipeline {
                         exit 1
                     fi
                     
-                    # Запуск приложения
                     python app.py &
                     
-                    # Проверка запуска
                     sleep 5
                     if ! pgrep -f "python app.py"; then
                         echo "ERROR: Процесс не запустился"
@@ -103,20 +81,7 @@ pipeline {
             archiveArtifacts artifacts: "${PROJECT_DIR}/app.log", allowEmptyArchive: true
             cleanWs()  // Очистка workspace
         }
-        success {
-            slackSend (
-                channel: '#deployments',
-                message: "✅ Успешный деплой ${env.JOB_NAME} (#${env.BUILD_NUMBER})\n" +
-                         "Ссылка: ${env.BUILD_URL}"
-            )
-        }
-        failure {
-            slackSend (
-                channel: '#deployments',
-                message: "❌ Ошибка в ${env.JOB_NAME} (#${env.BUILD_NUMBER})\n" +
-                         "Логи: ${env.BUILD_URL}/console"
-            )
-        }
+               
     }
-}
+    }
 }
