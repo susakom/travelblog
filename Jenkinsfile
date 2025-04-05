@@ -64,8 +64,7 @@ pipeline {
             steps {
                 sh """
                     cd "${PROJECT_DIR}"
-                    sh """
-                        //  Создаем venv при необходимости
+                    //  Создаем venv при необходимости
                         if [ ! -d "${VENV_PATH}" ]; then
                             python3 -m venv "${VENV_PATH}"
                             . "${VENV_PATH}/bin/activate"
@@ -75,7 +74,7 @@ pipeline {
                         
                     //  Установка зависимостей
                     pip install -r "${PROJECT_DIR}/requirements.txt"
-                """
+               
 
                     
                      # Проверка venv
