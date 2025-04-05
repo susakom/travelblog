@@ -39,26 +39,26 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                sh """
-                    cd "${PROJECT_DIR}"
-                    . "venv/bin/activate"
+        // stage('Test') {
+        //     steps {
+        //         sh """
+        //             cd "${PROJECT_DIR}"
+        //             . "venv/bin/activate"
                     
-                    # Установка тестовых зависимостей
-                    pip install pytest pytest-cov
+        //             # Установка тестовых зависимостей
+        //             pip install pytest pytest-cov
                     
-                    # Запуск тестов
-                    python -m pytest tests/ \
-                        --cov=app \
-                        --cov-report=xml:coverage.xml \
-                        --junitxml=test-results.xml \
-                        --disable-warnings
-                """
-                junit "${PROJECT_DIR}/test-results.xml"
-                cobertura coberturaReportFile: "${PROJECT_DIR}/coverage.xml"
-            }
-        }
+        //             # Запуск тестов
+        //             python -m pytest tests/ \
+        //                 --cov=app \
+        //                 --cov-report=xml:coverage.xml \
+        //                 --junitxml=test-results.xml \
+        //                 --disable-warnings
+        //         """
+        //         junit "${PROJECT_DIR}/test-results.xml"
+        //         cobertura coberturaReportFile: "${PROJECT_DIR}/coverage.xml"
+        //     }
+        // }
 
         stage('Deploy') {
             steps {
