@@ -64,7 +64,7 @@ pipeline {
             steps {
                 sh """
                     cd "${PROJECT_DIR}"
-                    . "${VENV_PATH}/bin/activate"
+                    . "vevn/bin/activate"
                     
                     # Остановка предыдущего процесса
                     pkill -f "python app.py" || true
