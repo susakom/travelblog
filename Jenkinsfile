@@ -43,7 +43,7 @@ pipeline {
         //     steps {
         //         sh """
         //             cd "${PROJECT_DIR}"
-        //             . "venv/bin/activate"
+        //            source "venv/bin/activate"
                     
         //             # Установка тестовых зависимостей
         //             pip install pytest pytest-cov
@@ -64,7 +64,7 @@ pipeline {
             steps {
                 sh """
                     cd "${PROJECT_DIR}"
-                    . "vevn/bin/activate"
+                    source "venv/bin/activate"
                     
                     # Остановка предыдущего процесса
                     pkill -f "python app.py" || true
